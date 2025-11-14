@@ -117,6 +117,30 @@ RCT_EXPORT_METHOD(resetUserName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
     resolve(nil);
 }
 
+RCT_EXPORT_METHOD(setConsentDialogRequired:(BOOL)required 
+                  withResolver:(RCTPromiseResolveBlock)resolve
+                  withRejecter:(RCTPromiseRejectBlock)reject)
+{
+    resolve(nil);
+}
+
+RCT_EXPORT_METHOD(presentATTPopup:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    // Swift 코드: guard let vc = ...
+    UIViewController *rootVC = [UIApplication sharedApplication].delegate.window.rootViewController;
+
+    if (!rootVC) {
+        reject(@"NO_VIEWCONTROLLER", @"No root view controller", nil);
+        return;
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [S2Offerwall presentATTPopup:rootVC];
+        resolve(nil);
+    });
+}
+
 // requestOfferwallData
 RCT_EXPORT_METHOD(requestOfferwallData:(NSString *)placementName 
                   isEmbeded:(BOOL)isEmbeded 

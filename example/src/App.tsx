@@ -12,6 +12,9 @@ export default function App() {
   };
 
   useEffect(() => {
+    S2Offerwall.presentATTPopup();
+    S2Offerwall.setConsentDialogRequired(true);
+
     S2Offerwall.setAppIdForAndroid(
       '0d724e96d380f016521e1bba1d9142eae52893d29f484033cb06c3ad0f2ca651'
     );
