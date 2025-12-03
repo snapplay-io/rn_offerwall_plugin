@@ -75,8 +75,8 @@ export const S2Offerwall = {
     return Promise.resolve();
   },
 
-  setUserName(userName: string): Promise<void> {
-    return S2OfferwallModule.setUserName(userName);
+  setUserName(userName: string, displayName: string = ''): Promise<void> {
+    return S2OfferwallModule.setUserName(userName, displayName);
   },
 
   getUserName(): Promise<string> {

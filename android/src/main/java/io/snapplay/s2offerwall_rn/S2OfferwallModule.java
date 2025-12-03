@@ -125,10 +125,10 @@ public class S2OfferwallModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setUserName(String userName, Promise promise) {
+    public void setUserName(String userName, String displayName, Promise promise) {
         Activity activity = getCurrentActivity();
         if (activity != null) {
-            S2Offerwall.setUserName(activity, userName);
+            S2Offerwall.setUserName(activity, userName, displayName);
         }
         promise.resolve(null);
     }

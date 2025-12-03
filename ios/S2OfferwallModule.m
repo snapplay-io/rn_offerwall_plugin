@@ -93,11 +93,12 @@ RCT_EXPORT_METHOD(setAppId:(NSString *)appId
 
 // setUserName
 RCT_EXPORT_METHOD(setUserName:(NSString *)username
+                  displayName:(NSString *)displayName
                   withResolver:(RCTPromiseResolveBlock)resolve
                   withRejecter:(RCTPromiseRejectBlock)reject)
 {
     // Swift 코드: S2Offerwall.setUserName(username)
-    [S2Offerwall setUserName:username];
+    [S2Offerwall setUserName:username displayName:displayName];
     resolve(nil);
 }
 

@@ -27,7 +27,7 @@ export default function App() {
     // 이벤트 구독
     S2Offerwall.onLoginRequested((event) => {
       if (event.name === 'onLoginRequested') {
-        S2Offerwall.setUserName('USER_LOGIN_ID_HASHED_IF_POSSIBLE');
+        S2Offerwall.setUserName('USER_LOGIN', 'React 네이티드');
       }
     });
 
