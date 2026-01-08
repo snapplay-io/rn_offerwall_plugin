@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.source_files = "ios/**/*.{h,m,mm,swift,cpp}"
   s.private_header_files = "ios/**/*.h"
 
-  s.dependency 's2offerwall', '~> 1.0.19'
+  s.dependency 's2offerwall', '~> 1.0.22'
   s.dependency 'React-Core'
   
   install_modules_dependencies(s)

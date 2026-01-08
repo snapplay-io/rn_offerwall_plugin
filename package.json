@@ -1,6 +1,6 @@
 {
   "name": "react-native-s2offerwall",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "React native plugin for S2Offerwall",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
