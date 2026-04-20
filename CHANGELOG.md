@@ -22,3 +22,7 @@
 * 2026.01.16
 * Android/iOS SDK v1.0.25 적용
 * Plugin 버전 SDK와 통일
+## 1.0.28
+* 2026.04.20
+* Android/iOS SDK v1.0.28 적용
+* requestMaxPointData() 추가

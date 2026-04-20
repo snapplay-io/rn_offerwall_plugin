@@ -178,6 +178,20 @@ public class S2OfferwallModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void requestMaxPointData(Promise promise) {
+        Activity activity = getCurrentActivity();
+        if (activity == null) {
+            promise.reject("NO_ACTIVITY", "Activity is not attached");
+            return;
+        }
+
+        new Thread(() -> {
+            String data = S2Offerwall.requestMaxPointData(activity);
+            promise.resolve(data);
+        }).start();
+    }
+
+    @ReactMethod
     public void requestOfferwallData(String placementName, boolean isEmbeded, Promise promise) {
         Activity activity = getCurrentActivity();
         if (activity == null) {

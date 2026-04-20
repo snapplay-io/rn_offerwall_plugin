@@ -2253,8 +2253,8 @@ PODS:
     - React-perflogger (= 0.81.1)
     - React-utils (= 0.81.1)
     - SocketRocket
-  - s2offerwall (1.0.22)
-  - s2offerwall_rn (1.0.5):
+  - s2offerwall (1.0.28)
+  - s2offerwall_rn (1.0.28):
     - boost
     - DoubleConversion
     - fast_float
@@ -2280,7 +2280,7 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - s2offerwall (~> 1.0.22)
+    - s2offerwall (~> 1.0.28)
     - SocketRocket
     - Yoga
   - SocketRocket (0.7.1)
@@ -2522,7 +2522,7 @@ SPEC CHECKSUMS:
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
   hermes-engine: 4f8246b1f6d79f625e0d99472d1f3a71da4d28ca
-  RCT-Folly: 846fda9475e61ec7bcbf8a3fe81edfcaeb090669
+  RCT-Folly: 59ec0ac1f2f39672a0c6e6cecdd39383b764646f
   RCTDeprecation: c4b9e2fd0ab200e3af72b013ed6113187c607077
   RCTRequired: e97dd5dafc1db8094e63bc5031e0371f092ae92a
   RCTTypeSafety: 720403058b7c1380c6a3ae5706981d6362962c89
@@ -2585,8 +2585,8 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 3eb9096cb139eb433965693bbe541d96eb3d3ec9
   ReactCodegen: 4d203eddf6f977caa324640a20f92e70408d648b
   ReactCommon: ce5d4226dfaf9d5dacbef57b4528819e39d3a120
-  s2offerwall: f43ac312cdf58a7717a1aea59a52f067ac0fd7e4
-  s2offerwall_rn: ea6b6389c8c9a607509d3df7613a1b8c1c2e538f
+  s2offerwall: 008000acabb03aa79af7622534762f703ccc8755
+  s2offerwall_rn: 903cf6a82fd4570fafa3495d80d04dcd0869c646
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: 11c9686a21e2cd82a094a723649d9f4507200fb0
 

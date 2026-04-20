@@ -95,6 +95,10 @@ export const S2Offerwall = {
     return S2OfferwallModule.setConsentDialogRequired(required);
   },
 
+  requestMaxPointData(): Promise<string> {
+    return S2OfferwallModule.requestMaxPointData();
+  },
+
   requestOfferwallData(
     placementName: string,
     isEmbeded: boolean

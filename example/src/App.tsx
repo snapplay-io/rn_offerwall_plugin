@@ -16,10 +16,10 @@ export default function App() {
     S2Offerwall.setConsentDialogRequired(true);
 
     S2Offerwall.setAppIdForAndroid(
-      '0d724e96d380f016521e1bba1d9142eae52893d29f484033cb06c3ad0f2ca651'
+      'be17a4b66b6e3f22febd1a5bb698811f464c7cb613129fbbb7cf8a94fdccd651'
     );
     S2Offerwall.setAppIdForIOS(
-      '0d724e96d380f016521e1bba1d9142eae52893d29f484033cb06c3ad0f2ca651'
+      'b845e9bbb14bffd63c7f2a4ae64ee010464c7cb613129fbbb7cf8a94fdccd651'
     );
 
     S2Offerwall.initSdk();
@@ -27,7 +27,14 @@ export default function App() {
     // 이벤트 구독
     S2Offerwall.onLoginRequested((event) => {
       if (event.name === 'onLoginRequested') {
-        S2Offerwall.setUserName('USER_LOGIN', 'React 네이티드');
+        S2Offerwall.setUserName('USER_LOGIN', 'React 네이티브');
+      }
+    });
+
+    S2Offerwall.onInitCompleted((event) => {
+      if (event.name === 'onInitCompleted') {
+        S2Offerwall.requestMaxPointData().then((data) => console.log(data));
+        S2Offerwall.setUserName('USER_LOGIN', 'React 네이티브');
       }
     });
 

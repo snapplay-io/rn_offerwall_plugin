@@ -65,20 +65,19 @@ RCT_EXPORT_METHOD(showOfferwall:(NSString *)placementName
                   withResolver:(RCTPromiseResolveBlock)resolve
                   withRejecter:(RCTPromiseRejectBlock)reject)
 {
-    // Swift 코드: guard let vc = ...
-    UIViewController *rootVC = [UIApplication sharedApplication].delegate.window.rootViewController;
-
-    if (!rootVC) {
-        reject(@"NO_VIEWCONTROLLER", @"No root view controller", nil);
-        return;
-    }
-    
     dispatch_async(dispatch_get_main_queue(), ^{
+        // Swift 코드: guard let vc = ...
+        UIViewController *rootVC = [UIApplication sharedApplication].delegate.window.rootViewController;
+
+        if (!rootVC) {
+            reject(@"NO_VIEWCONTROLLER", @"No root view controller", nil);
+            return;
+        }
+    
         // Swift 코드: S2Offerwall.presentOfferwall(vc, placementName: placementName)
         [S2Offerwall presentOfferwall:rootVC placementName:placementName];
         resolve(nil);
     });
-
 }
 
 // setAppId
@@ -128,18 +127,30 @@ RCT_EXPORT_METHOD(setConsentDialogRequired:(BOOL)required
 RCT_EXPORT_METHOD(presentATTPopup:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    // Swift 코드: guard let vc = ...
-    UIViewController *rootVC = [UIApplication sharedApplication].delegate.window.rootViewController;
-
-    if (!rootVC) {
-        reject(@"NO_VIEWCONTROLLER", @"No root view controller", nil);
-        return;
-    }
-    
     dispatch_async(dispatch_get_main_queue(), ^{
+        // Swift 코드: guard let vc = ...
+        UIViewController *rootVC = [UIApplication sharedApplication].delegate.window.rootViewController;
+
+        if (!rootVC) {
+            reject(@"NO_VIEWCONTROLLER", @"No root view controller", nil);
+            return;
+        }
+    
         [S2Offerwall presentATTPopup:rootVC];
         resolve(nil);
     });
+}
+
+// requestMaxPointData
+RCT_EXPORT_METHOD(requestMaxPointData:(RCTPromiseResolveBlock)resolve 
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    // Swift 코드: S2Offerwall.requestMaxPointData(...) { data in resolve(data) }
+  [S2Offerwall requestMaxPointDataWithCompletion:^(NSString * dataString) {
+      // 받은 String 데이터를 Promise의 resolve로 전달합니다.
+      resolve(dataString);
+  }];
+
 }
 
 // requestOfferwallData
@@ -163,15 +174,15 @@ RCT_EXPORT_METHOD(openAdItem:(NSInteger)advId
                   withResolver:(RCTPromiseResolveBlock)resolve
                   withRejecter:(RCTPromiseRejectBlock)reject)
 {
-    // Swift 코드: guard let vc = ...
-    UIViewController *rootVC = [UIApplication sharedApplication].delegate.window.rootViewController;
-
-    if (!rootVC) {
-        reject(@"NO_VIEWCONTROLLER", @"No root view controller", nil);
-        return;
-    }
-    
     dispatch_async(dispatch_get_main_queue(), ^{
+        // Swift 코드: guard let vc = ...
+        UIViewController *rootVC = [UIApplication sharedApplication].delegate.window.rootViewController;
+
+        if (!rootVC) {
+            reject(@"NO_VIEWCONTROLLER", @"No root view controller", nil);
+            return;
+        }
+    
         // Swift 코드: S2Offerwall.openAdItem(...)
         [S2Offerwall openAdItem:rootVC advId:advId needDetail:needDetail placementFrom:placementFrom];
         resolve(nil);
