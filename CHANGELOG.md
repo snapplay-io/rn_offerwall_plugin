@@ -26,3 +26,6 @@
 * 2026.04.20
 * Android/iOS SDK v1.0.28 적용
 * requestMaxPointData() 추가
+## 1.0.29
+* 2026.05.12
+* iOS SDK v1.0.29 적용 (PrivacyInfo.xcprivacy 추가)
