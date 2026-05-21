@@ -29,6 +29,6 @@
 ## 1.0.29
 * 2026.05.12
 * iOS SDK v1.0.29 적용 (PrivacyInfo.xcprivacy 추가)
-## 1.0.30
+## 1.0.32
 * 2026.05.21
-* iOS SDK v1.0.30 적용 (PrivacyInfo.xcprivacy 내용 수정)
+* iOS SDK v1.0.32 적용 (PrivacyInfo.xcprivacy 내용 수정)
