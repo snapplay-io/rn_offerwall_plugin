@@ -32,3 +32,6 @@
 ## 1.0.32
 * 2026.05.21
 * iOS SDK v1.0.32 적용 (PrivacyInfo.xcprivacy 내용 수정)
+## 1.0.33
+* 2026.06.23
+* Android/iOS SDK v1.0.33 적용 (기기 언어 및 국가 코드 수집)
