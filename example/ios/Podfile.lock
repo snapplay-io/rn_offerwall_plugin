@@ -5,6 +5,9 @@ PODS:
   - FBLazyVector (0.81.1)
   - fmt (11.0.2)
   - glog (0.3.5)
+  - Google-Mobile-Ads-SDK (13.5.0):
+    - GoogleUserMessagingPlatform (>= 1.1)
+  - GoogleUserMessagingPlatform (3.1.0)
   - hermes-engine (0.81.1):
     - hermes-engine/Pre-built (= 0.81.1)
   - hermes-engine/Pre-built (0.81.1)
@@ -2253,8 +2256,38 @@ PODS:
     - React-perflogger (= 0.81.1)
     - React-utils (= 0.81.1)
     - SocketRocket
-  - s2offerwall (1.0.32)
-  - s2offerwall_rn (1.0.30):
+  - RNGoogleMobileAds (16.5.0):
+    - boost
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - Google-Mobile-Ads-SDK (= 13.5.0)
+    - GoogleUserMessagingPlatform (= 3.1.0)
+    - hermes-engine
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SocketRocket
+    - Yoga
+  - s2offerwall (1.0.34)
+  - s2offerwall_rn (1.0.34):
     - boost
     - DoubleConversion
     - fast_float
@@ -2280,7 +2313,7 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - s2offerwall (~> 1.0.30)
+    - s2offerwall (~> 1.0.34)
     - SocketRocket
     - Yoga
   - SocketRocket (0.7.1)
@@ -2358,12 +2391,15 @@ DEPENDENCIES:
   - ReactAppDependencyProvider (from `build/generated/ios`)
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNGoogleMobileAds (from `../node_modules/react-native-google-mobile-ads`)
   - s2offerwall_rn (from `../..`)
   - SocketRocket (~> 0.7.1)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
+    - Google-Mobile-Ads-SDK
+    - GoogleUserMessagingPlatform
     - s2offerwall
     - SocketRocket
 
@@ -2509,6 +2545,8 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNGoogleMobileAds:
+    :path: "../node_modules/react-native-google-mobile-ads"
   s2offerwall_rn:
     :path: "../.."
   Yoga:
@@ -2521,6 +2559,8 @@ SPEC CHECKSUMS:
   FBLazyVector: b8f1312d48447cca7b4abc21ed155db14742bd03
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
+  Google-Mobile-Ads-SDK: 2171620c6497804b57dc88b95644cc82e7dfb5b0
+  GoogleUserMessagingPlatform: befe603da6501006420c206222acd449bba45a9c
   hermes-engine: 4f8246b1f6d79f625e0d99472d1f3a71da4d28ca
   RCT-Folly: 59ec0ac1f2f39672a0c6e6cecdd39383b764646f
   RCTDeprecation: c4b9e2fd0ab200e3af72b013ed6113187c607077
@@ -2585,8 +2625,9 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 448b422f8af1dedf81374eacc90a15439a0ed7f5
   ReactCodegen: 3baedb0c33f963250c866151b825a3c5194b12f1
   ReactCommon: e897f9a1b4afab370cfefaaf5fb3c80371bc3937
-  s2offerwall: 3db37e056cab26e900fe95076e5a51d44ee0d4bb
-  s2offerwall_rn: 2ef6fac935fb184aa63bc7b5626d64724261b9cd
+  RNGoogleMobileAds: 982da97d65954ffb83335b4c7bb3230e873f96de
+  s2offerwall: 74d60ef520fe8fe37697ed1f4e5e829a860e2746
+  s2offerwall_rn: 1e4a306940978970084931abe30b2e8bc30010c6
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: 11c9686a21e2cd82a094a723649d9f4507200fb0
 

@@ -14,6 +14,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import s2.adapi.sdk.offerwall.S2Offerwall;
+import s2.adapi.sdk.offerwall.S2RewardedAdRequest;
 
 public class S2OfferwallModule extends ReactContextBaseJavaModule {
     private static final String TAG = "S2OfferwallModule";
@@ -38,7 +39,47 @@ public class S2OfferwallModule extends ReactContextBaseJavaModule {
         }
     }
 
+    // 앱 RV 요청을 JS 로 전달한다.
+    // JS 는 네이티브 request 객체를 가질 수 없으므로 requestId 문자열만 넘기고,
+    // 결과는 reportRewardedAdResult 호출로 되돌려 받는다.
+    private void sendRewardedAdEvent(String eventName, S2RewardedAdRequest request) {
+        if (!getReactApplicationContext().hasActiveCatalystInstance()) {
+            // JS 쪽이 아직 연결되지 않았다.
+            // 이벤트 페이지가 타임아웃까지 기다리지 않도록 즉시 응답한다.
+            Log.e(TAG, "no active catalyst instance. reply to rewarded-ad request. " + eventName);
+            if ("onRewardedAdShow".equals(eventName)) {
+                request.onDismissed();
+            }
+            else {
+                request.onNoAd();
+            }
+            return;
+        }
+
+        WritableMap map = Arguments.createMap();
+        map.putString("name", eventName);
+        map.putString("requestId", request.getRequestId());
+        map.putString("slot", request.getSlot());
+        sendEvent(eventName, map);
+    }
+
+    private void registerRewardedAdListener() {
+        S2Offerwall.setRewardedAdListener(new S2Offerwall.RewardedAdListener() {
+            @Override
+            public void onRewardedAdRequested(S2RewardedAdRequest request) {
+                sendRewardedAdEvent("onRewardedAdRequested", request);
+            }
+
+            @Override
+            public void onRewardedAdShow(S2RewardedAdRequest request) {
+                sendRewardedAdEvent("onRewardedAdShow", request);
+            }
+        });
+    }
+
     private void registerOfferwallListener() {
+        registerRewardedAdListener();
+
         S2Offerwall.setEventListener(new S2Offerwall.EventListener() {
             @Override
             public void onLoginRequested(String param) {
@@ -228,6 +269,12 @@ public class S2OfferwallModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void closeAll(Promise promise) {
         S2Offerwall.closeAll();
+        promise.resolve(null);
+    }
+
+    @ReactMethod
+    public void reportRewardedAdResult(String requestId, String result, Promise promise) {
+        S2Offerwall.reportRewardedAdResult(requestId, result);
         promise.resolve(null);
     }
 

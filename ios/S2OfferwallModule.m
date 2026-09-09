@@ -7,7 +7,7 @@
 // MARK: - Module Interface & Protocols
 
 // S2OfferwallModule 인터페이스 정의 및 RCTBridgeModule, RCTEventEmitter 상속
-@interface S2OfferwallModule : RCTEventEmitter <RCTBridgeModule, S2OfferwallEventListener, S2OfferwallInitializeListener>
+@interface S2OfferwallModule : RCTEventEmitter <RCTBridgeModule, S2OfferwallEventListener, S2OfferwallInitializeListener, S2RewardedAdListener>
 
 @end
 
@@ -23,19 +23,22 @@ RCT_EXPORT_MODULE();
 // MARK: - RCTEventEmitter Overrides
 
 - (NSArray<NSString *> *)supportedEvents {
-    return @[@"onInitCompleted", @"onLoginRequested"];
+    return @[@"onInitCompleted", @"onLoginRequested",
+             @"onRewardedAdRequested", @"onRewardedAdShow"];
 }
 
 - (void)startObserving {
     hasListeners = YES;
     // 이벤트 리스너가 추가될 때 네이티브 리스너를 설정할 수 있습니다.
     [S2Offerwall setEventListener:self];
+    [S2Offerwall setRewardedAdListener:self];
 }
 
 - (void)stopObserving {
     hasListeners = NO;
     // 이벤트 리스너가 모두 제거되면 네이티브 리스너를 해제할 수 있습니다.
     [S2Offerwall setEventListener:nil];
+    [S2Offerwall setRewardedAdListener:nil];
 }
 
 // MARK: - Helper to send events
@@ -236,6 +239,55 @@ RCT_EXPORT_METHOD(getPlatformVersion:(RCTPromiseResolveBlock)resolve rejecter:(R
 - (void)onFailure {
     // Swift 코드: sendEvent("onInitCompleted", body: ["flag": false])
     [self sendEvent:@"onInitCompleted" body:@{@"name": @"onInitCompleted", @"flag": @NO}];
+}
+
+
+// MARK: - S2RewardedAdListener (앱 RV)
+
+// 앱 RV 요청을 JS 로 전달한다.
+// JS 는 네이티브 request 객체를 가질 수 없으므로 requestId 문자열만 넘기고,
+// 결과는 reportRewardedAdResult 호출로 되돌려 받는다.
+- (void)sendRewardedAdEvent:(NSString *)eventName request:(S2RewardedAdRequest *)request
+{
+    if (!hasListeners) {
+        // JS 쪽 리스너가 아직 없다.
+        // 이벤트 페이지가 타임아웃까지 기다리지 않도록 즉시 응답한다.
+        RCTLogWarn(@"no listeners. reply to rewarded-ad request. %@", eventName);
+        if ([eventName isEqualToString:@"onRewardedAdShow"]) {
+            [request onDismissed];
+        } else {
+            [request onNoAd];
+        }
+        return;
+    }
+
+    [self sendEventWithName:eventName body:@{
+        @"name": eventName,
+        @"requestId": request.requestId,
+        @"slot": request.slot
+    }];
+}
+
+- (void)onRewardedAdRequested:(S2RewardedAdRequest *)request
+{
+    [self sendRewardedAdEvent:@"onRewardedAdRequested" request:request];
+}
+
+- (void)onRewardedAdShow:(S2RewardedAdRequest *)request
+{
+    [self sendRewardedAdEvent:@"onRewardedAdShow" request:request];
+}
+
+// reportRewardedAdResult
+RCT_EXPORT_METHOD(reportRewardedAdResult:(NSString *)requestId
+                  result:(NSString *)result
+                  withResolver:(RCTPromiseResolveBlock)resolve
+                  withRejecter:(RCTPromiseRejectBlock)reject)
+{
+    // 생성된 Swift 인터페이스가 두 번째 인자에 라벨이 없어 아래와 같은 형태로 호출한다.
+    //   + (void)reportRewardedAdResult:(NSString *)requestId :(NSString *)result;
+    [S2Offerwall reportRewardedAdResult:requestId :result];
+    resolve(nil);
 }
 
 @end
