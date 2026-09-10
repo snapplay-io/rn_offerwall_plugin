@@ -2286,8 +2286,8 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - s2offerwall (1.0.34)
-  - s2offerwall_rn (1.0.34):
+  - s2offerwall (1.0.36)
+  - s2offerwall_rn (1.0.36):
     - boost
     - DoubleConversion
     - fast_float
@@ -2313,7 +2313,7 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - s2offerwall (~> 1.0.34)
+    - s2offerwall (~> 1.0.36)
     - SocketRocket
     - Yoga
   - SocketRocket (0.7.1)
@@ -2626,8 +2626,8 @@ SPEC CHECKSUMS:
   ReactCodegen: 3baedb0c33f963250c866151b825a3c5194b12f1
   ReactCommon: e897f9a1b4afab370cfefaaf5fb3c80371bc3937
   RNGoogleMobileAds: 982da97d65954ffb83335b4c7bb3230e873f96de
-  s2offerwall: 74d60ef520fe8fe37697ed1f4e5e829a860e2746
-  s2offerwall_rn: 1e4a306940978970084931abe30b2e8bc30010c6
+  s2offerwall: 564c95bb2a28ba74d57a4b82fad11e9b91bc5491
+  s2offerwall_rn: b44dffe7dcd141a3643a95b0f0cb7b3e8e1abb46
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: 11c9686a21e2cd82a094a723649d9f4507200fb0
 
