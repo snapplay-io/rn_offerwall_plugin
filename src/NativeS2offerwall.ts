@@ -272,6 +272,28 @@ export const S2Offerwall = {
     return S2OfferwallModule.openAdItem(advId, needDetail, placementFrom);
   },
 
+  // --- 고객센터 (2026.11.19) ---
+
+  /** openHelpdesk() 결과 코드. 네이티브 SDK(Android/iOS)와 같은 값이다. */
+  RESULT_OK: 0,
+  /** setUserName() 으로 사용자 식별값이 설정되지 않아 화면을 띄우지 않았다. */
+  RESULT_NEED_LOGIN: 10112,
+  /** initSdk() 전에 호출했다. */
+  RESULT_NOT_INITIALIZED: 10901,
+
+  /**
+   * @description 고객센터(helpdesk) 화면을 팝업으로 띄운다.
+   *
+   * 고객센터는 사용자 식별값이 필요하다. setUserName() 이 호출되지 않았으면 화면을 띄우지 않고
+   * RESULT_NEED_LOGIN 을 반환한다. 이 경우 로그인 → setUserName() 후 다시 호출한다.
+   *
+   * @param tab 처음 보여줄 탭 (소문자 문자열, 연동 가이드 참고). 생략하면 기본 탭
+   * @returns RESULT_OK, RESULT_NEED_LOGIN, RESULT_NOT_INITIALIZED
+   */
+  openHelpdesk(tab?: string): Promise<number> {
+    return S2OfferwallModule.openHelpdesk(tab ?? null);
+  },
+
   closeTop(): Promise<void> {
     return S2OfferwallModule.closeTop();
   },

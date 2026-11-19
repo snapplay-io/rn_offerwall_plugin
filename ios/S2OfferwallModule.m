@@ -192,6 +192,30 @@ RCT_EXPORT_METHOD(openAdItem:(NSInteger)advId
     });
 }
 
+// openHelpdesk (2026.11.19)
+// 고객센터 화면. 결과 코드(0 / 10112 로그인 필요 / 10901 미초기화)를 그대로 JS 로 돌려준다.
+RCT_EXPORT_METHOD(openHelpdesk:(NSString * _Nullable)tab
+                  withResolver:(RCTPromiseResolveBlock)resolve
+                  withRejecter:(RCTPromiseRejectBlock)reject)
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIViewController *topVC = [UIApplication sharedApplication].delegate.window.rootViewController;
+
+        if (!topVC) {
+            reject(@"NO_VIEWCONTROLLER", @"No root view controller", nil);
+            return;
+        }
+
+        // 이미 다른 화면(오퍼월 등)이 present 되어 있으면 그 위에 띄워야 하므로 최상단까지 따라간다.
+        while (topVC.presentedViewController) {
+            topVC = topVC.presentedViewController;
+        }
+
+        NSInteger ret = [S2Offerwall openHelpdesk:topVC tab:tab];
+        resolve(@(ret));
+    });
+}
+
 // closeTop
 RCT_EXPORT_METHOD(closeTop:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {

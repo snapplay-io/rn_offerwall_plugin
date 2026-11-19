@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { useEffect, useState } from 'react';
+import { View, StyleSheet, Button, Text } from 'react-native';
 import { S2Offerwall } from 'react-native-s2offerwall';
 import mobileAds, {
   AdEventType,
@@ -149,12 +149,51 @@ function initRewardedAd() {
   });
 }
 
+// openHelpdesk 테스트용 탭 목록 (2026.11.19). 'x' 는 잘못된 값 → 서버가 걸러내 기본 탭이 열려야 한다.
+const HELPDESK_TABS: { label: string; tab?: string }[] = [
+  { label: '기본' },
+  { label: '적립내역 (p)', tab: 'p' },
+  { label: '참여중 (o)', tab: 'o' },
+  { label: '공지/FAQ (f)', tab: 'f' },
+  { label: '문의하기 (h)', tab: 'h' },
+  { label: '잘못된 값 (x)', tab: 'x' },
+];
+
+function describeHelpdeskResult(ret: number): string {
+  switch (ret) {
+    case S2Offerwall.RESULT_OK:
+      return 'OK';
+    case S2Offerwall.RESULT_NEED_LOGIN:
+      return '로그인 필요';
+    case S2Offerwall.RESULT_NOT_INITIALIZED:
+      return 'SDK 미초기화';
+    default:
+      return '알 수 없음';
+  }
+}
+
 export default function App() {
+  const [helpdeskResult, setHelpdeskResult] = useState('');
+
   const handleShowOfferwall = async () => {
     try {
       await S2Offerwall.showOfferwall('main');
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  // 고객센터 화면을 띄우고 결과 코드를 화면에 표시한다.
+  // [로그아웃] 후 누르면 화면이 뜨지 않고 RESULT_NEED_LOGIN 이 반환되어야 한다.
+  const handleOpenHelpdesk = async (tab?: string) => {
+    try {
+      const ret = await S2Offerwall.openHelpdesk(tab);
+      const desc = describeHelpdeskResult(ret);
+      console.log(`openHelpdesk(tab: ${tab}) = ${ret} (${desc})`);
+      setHelpdeskResult(`tab: ${tab ?? '(기본)'} → ${ret} (${desc})`);
+    } catch (error) {
+      console.error(error);
+      setHelpdeskResult(`오류: ${error}`);
     }
   };
 
@@ -196,6 +235,34 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Button title="Show Offerwall" onPress={handleShowOfferwall} />
+
+      <Text style={styles.sectionTitle}>openHelpdesk 테스트</Text>
+      <View style={styles.row}>
+        {HELPDESK_TABS.map((item) => (
+          <Button
+            key={item.label}
+            title={item.label}
+            onPress={() => handleOpenHelpdesk(item.tab)}
+          />
+        ))}
+      </View>
+      <View style={styles.row}>
+        <Button
+          title="로그인"
+          onPress={async () => {
+            await S2Offerwall.setUserName('USER_LOGIN', 'React 네이티브');
+            setHelpdeskResult('setUserName 완료');
+          }}
+        />
+        <Button
+          title="로그아웃"
+          onPress={async () => {
+            await S2Offerwall.resetUserName();
+            setHelpdeskResult('resetUserName 완료');
+          }}
+        />
+      </View>
+      <Text>{helpdeskResult}</Text>
     </View>
   );
 }
@@ -205,5 +272,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  sectionTitle: {
+    marginTop: 30,
+    marginBottom: 8,
+  },
+  row: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginBottom: 8,
   },
 });

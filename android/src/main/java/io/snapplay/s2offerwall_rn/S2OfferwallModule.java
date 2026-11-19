@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -255,6 +256,18 @@ public class S2OfferwallModule extends ReactContextBaseJavaModule {
             });
             promise.resolve(null);
         } 
+        else {
+            promise.reject("NO_ACTIVITY", "Activity is not attached");
+        }
+    }
+
+    // 고객센터 화면 (2026.11.19). 결과 코드(0 / 10112 로그인 필요 / 10901 미초기화)를 그대로 JS 로 돌려준다.
+    @ReactMethod
+    public void openHelpdesk(@Nullable String tab, Promise promise) {
+        Activity activity = getCurrentActivity();
+        if (activity != null) {
+            promise.resolve(S2Offerwall.openHelpdesk(activity, tab));
+        }
         else {
             promise.reject("NO_ACTIVITY", "Activity is not attached");
         }

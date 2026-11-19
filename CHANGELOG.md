@@ -54,3 +54,6 @@
 ## 1.0.40
 * 2026.11.17
 * Android/iOS SDK v.1.040 적용 (에러메시지 처리)
+## 1.0.41
+* 2026.11.20
+* Android/iOS SDK v1.0.41 적용 (고객센터 화면 openHelpdesk API 추가)
